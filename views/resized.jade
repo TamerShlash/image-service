@@ -1,0 +1,14 @@
+extends ./layout.jade
+
+block title
+  title Success!
+
+block content
+  h1 Image Uploaded Successfully!
+  p We've also created thumbnails for your convenience.
+  p Here are the permanent links to the image and the thumbnails:
+  a(href=baseUrl + '.' + ext) Original Image
+  div
+    a(href=baseUrl + '-x32.' + ext) 32x width thumbnail.
+  div
+    a(href=baseUrl + '-x64.' + ext) 64x width thumbnail.
