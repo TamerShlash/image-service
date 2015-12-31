@@ -1,0 +1,13 @@
+extends ./layout.jade
+
+block title
+  title Success!
+
+block content
+  h1 Image Uploaded Successfully!
+  p Here's the permanent link to the image:
+  a(href=imageUrl)=imageUrl
+  br
+  p Here's a previw:
+  br
+  img(src=imageUrl)  

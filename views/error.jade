@@ -1,0 +1,11 @@
+extends ./layout.jade
+
+block title
+  title Something Is Wrong
+
+block content
+  p Your request encountered the following problem:
+  code=error
+  br
+  br
+  a(href='/') Try again

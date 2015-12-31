@@ -1,0 +1,6 @@
+extends ./layout.jade
+
+block content
+  form(action="/images", method="post", enctype="multipart/form-data")
+    input(type="file", name="attachment")
+    input(type="submit", value="Upload")
