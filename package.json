@@ -1,0 +1,14 @@
+{
+  "name": "image-service",
+  "version": "0.0.1",
+  "description": "Cloud Images MicroService",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "multer": "^1.1.0"
+  }
+}
