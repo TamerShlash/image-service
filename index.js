@@ -1,7 +1,8 @@
 var express  = require('express'),
     multer   = require('multer'),
     path     = require('path'),
-    crypto   = require('crypto');
+    crypto   = require('crypto'),
+    gm       = require('gm').subClass({imageMagick: true});
 
 function invalidFileError(message){
     this.message = message;
@@ -37,8 +38,20 @@ app.set('view engine', 'jade');
 
 app.post('/images', uploader.single('attachment'), function (req, res, next) {
   res.status(201);
-  var imageUrl = req.protocol + '://' + req.get('host') + '/images/' + req.file.filename;
-  res.render('success', { imageUrl: imageUrl });
+  var parts = req.file.filename.split('.');
+  var rawPath = req.file.destination + '/' + parts[0];
+  var baseUrl = req.protocol + '://' + req.get('host') + '/images/' + parts[0];
+
+  var img = gm(req.file.destination + '/' + req.file.filename);
+  img.size(function(err, size) {
+    if (size.width > 128 && size.height > 128) {
+      img.resize(32).write(rawPath + '-x32.' + parts[1], function() {});
+      img.resize(64).write(rawPath + '-x64.' + parts[1], function() {});
+      res.render('resized', { baseUrl: baseUrl, ext: parts[1] });
+    } else {
+      res.render('not_resized', { baseUrl: baseUrl, ext: parts[1] });
+    }
+  });
 });
 
 app.get('/', function(req, res){
